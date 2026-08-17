@@ -125,6 +125,124 @@ body {
     padding: 36px 32px;
 }
 
+/* Auth Hero Panel (Desktop Showcase) */
+.auth-hero-panel {
+    display: none;
+}
+
+@media (min-width: 960px) {
+    .app-layout {
+        max-width: 1180px;
+    }
+
+    .auth-wrapper {
+        display: grid;
+        grid-template-columns: 1.15fr 1fr;
+        gap: 56px;
+        align-items: center;
+        max-width: 1080px;
+        margin: 0 auto;
+    }
+
+    .auth-hero-panel {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        padding-right: 20px;
+    }
+
+    .hero-brand {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+    }
+
+    .brand-logo-icon.lg {
+        width: 48px;
+        height: 48px;
+        font-size: 24px;
+        border-radius: 14px;
+    }
+
+    .hero-title {
+        font-family: var(--font-display);
+        font-size: 28px;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+    }
+
+    .hero-subtitle {
+        font-size: 10px;
+        color: var(--primary-light);
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        display: block;
+    }
+
+    .hero-headline {
+        font-family: var(--font-display);
+        font-size: 34px;
+        font-weight: 800;
+        line-height: 1.2;
+        background: linear-gradient(135deg, #ffffff 30%, #a5b4fc);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .hero-desc {
+        color: var(--text-muted);
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    .hero-features {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        margin-top: 8px;
+    }
+
+    .feature-item {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 14px 18px;
+        background: rgba(18, 26, 43, 0.45);
+        border: 1px solid var(--card-border);
+        border-radius: 14px;
+        transition: all 0.3s ease;
+    }
+
+    .feature-item:hover {
+        background: rgba(99, 102, 241, 0.1);
+        border-color: rgba(99, 102, 241, 0.3);
+        transform: translateX(4px);
+    }
+
+    .feature-icon {
+        width: 38px;
+        height: 38px;
+        border-radius: 10px;
+        background: rgba(99, 102, 241, 0.15);
+        color: var(--primary-light);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-shrink: 0;
+    }
+
+    .feature-item h4 {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--text-main);
+    }
+
+    .feature-item p {
+        font-size: 11px;
+        color: var(--text-muted);
+    }
+}
+
 .brand-header {
     text-align: center;
     margin-bottom: 28px;
