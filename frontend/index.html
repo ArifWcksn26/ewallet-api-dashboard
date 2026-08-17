@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PaySphere Financial Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Animated Ambient Mesh background -->
+    <div class="mesh-background">
+        <div class="glow-orb orb-primary"></div>
+        <div class="glow-orb orb-emerald"></div>
+        <div class="glow-orb orb-purple"></div>
+    </div>
+
+    <!-- Toast Notifications Container -->
+    <div id="toast-container"></div>
+
+    <div class="app-layout">
+        <!-- AUTH SECTION -->
+        <section id="auth-section" class="auth-wrapper">
+            <div class="card auth-card">
+                <div class="brand-header">
+                    <div class="brand-badge">
+                        <div class="spark-icon">⚡</div>
+                        <span>Fintech Next-Gen</span>
+                    </div>
+                    <h2>PaySphere</h2>
+                    <p>Platform Transaksi Digital Aman, Real-Time & Transparan</p>
+                </div>
+
+                <div class="tab-switcher">
+                    <button id="tab-login-btn" class="tab-item active" onclick="switchTab('login')">Masuk</button>
+                    <button id="tab-register-btn" class="tab-item" onclick="switchTab('register')">Buat Akun</button>
+                </div>
+
+                <!-- Login Form -->
+                <form id="login-form" onsubmit="handleLogin(event)" class="auth-form">
+                    <div class="form-group">
+                        <label for="login-email">Alamat Email</label>
+                        <div class="input-wrapper">
+                            <input type="email" id="login-email" placeholder="nama@domain.com" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Kata Sandi</label>
+                        <div class="input-wrapper">
+                            <input type="password" id="login-password" placeholder="••••••••" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-gradient btn-full">
+                        <span>Masuk Ke Dashboard</span>
+                        <span class="arrow">→</span>
+                    </button>
+                </form>
+
+                <!-- Register Form -->
+                <form id="register-form" class="auth-form hidden" onsubmit="handleRegister(event)">
+                    <div class="form-group">
+                        <label for="reg-name">Nama Lengkap</label>
+                        <div class="input-wrapper">
+                            <input type="text" id="reg-name" placeholder="Budi Santoso" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-email">Alamat Email</label>
+                        <div class="input-wrapper">
+                            <input type="email" id="reg-email" placeholder="nama@domain.com" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-password">Kata Sandi</label>
+                        <div class="input-wrapper">
+                            <input type="password" id="reg-password" placeholder="Minimal 6 karakter" required minlength="6">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-gradient btn-full">
+                        <span>Buat Akun Baru</span>
+                        <span class="arrow">→</span>
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- MAIN DASHBOARD SECTION -->
+        <section id="dashboard-section" class="dashboard-wrapper hidden">
+            <!-- Navbar Header -->
+            <header class="top-nav card">
+                <div class="nav-brand">
+                    <div class="brand-logo-icon">P</div>
+                    <div>
+                        <span class="brand-title">PaySphere</span>
+                        <span class="brand-tag">PRO DASHBOARD</span>
+                    </div>
+                </div>
+                <div class="nav-right">
+                    <div class="user-pill">
+                        <div class="user-avatar" id="avatar-initials">US</div>
+                        <div class="user-meta">
+                            <span class="user-name" id="user-display-name">User Name</span>
+                            <span class="user-status">Verified Account</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-ghost btn-sm" onclick="handleLogout()">Keluar</button>
+                </div>
+            </header>
+
+            <!-- Metrics & Analytics Overview Cards -->
+            <div class="metrics-row">
+                <!-- Virtual Debit Card -->
+                <div class="financial-card virtual-card">
+                    <div class="card-top">
+                        <span class="card-brand">PaySphere Platinum</span>
+                        <span class="contactless-icon">)))</span>
+                    </div>
+                    <div class="card-mid">
+                        <span class="balance-label">TOTAL SALDO AKTIF</span>
+                        <div class="balance-group">
+                            <span class="currency">Rp</span>
+                            <span class="amount-number" id="wallet-balance-display">0</span>
+                            <button class="toggle-eye-btn" onclick="toggleBalanceVisibility()" title="Sembunyikan/Tampilkan Saldo">
+                                <span id="eye-icon">👁️</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-bottom">
+                        <div class="holder-details">
+                            <span class="detail-label">PEMILIK DOMPET</span>
+                            <span class="detail-val" id="card-holder-name">-</span>
+                        </div>
+                        <div class="holder-details">
+                            <span class="detail-label">ID DOMPET (SALIN)</span>
+                            <div class="copy-badge" onclick="copyWalletId()">
+                                <span id="card-wallet-id">-</span>
+                                <span class="copy-icon">📋</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="stats-column">
+                    <div class="card stat-card stat-inflow">
+                        <div class="stat-icon-wrapper inflow-icon">↓</div>
+                        <div class="stat-info">
+                            <span class="stat-label">Total Uang Masuk</span>
+                            <span class="stat-amount" id="stat-total-inflow">Rp 0</span>
+                        </div>
+                    </div>
+                    <div class="card stat-card stat-outflow">
+                        <div class="stat-icon-wrapper outflow-icon">↑</div>
+                        <div class="stat-info">
+                            <span class="stat-label">Total Uang Keluar</span>
+                            <span class="stat-amount" id="stat-total-outflow">Rp 0</span>
+                        </div>
+                    </div>
+                    <div class="card stat-card stat-count">
+                        <div class="stat-icon-wrapper count-icon">⇄</div>
+                        <div class="stat-info">
+                            <span class="stat-label">Total Mutasi Transaksi</span>
+                            <span class="stat-amount" id="stat-total-count">0 Transaksi</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Action Bar -->
+            <div class="card actions-bar">
+                <span class="section-title">Layanan & Aksi Cepat</span>
+                <div class="actions-grid">
+                    <button class="action-tile tile-topup" onclick="openModal('topup-modal')">
+                        <div class="tile-icon">+</div>
+                        <div class="tile-text">
+                            <span class="tile-title">Top-Up Saldo</span>
+                            <span class="tile-sub">Tambah dana ke akun</span>
+                        </div>
+                    </button>
+                    <button class="action-tile tile-transfer" onclick="openModal('transfer-modal')">
+                        <div class="tile-icon">➔</div>
+                        <div class="tile-text">
+                            <span class="tile-title">Transfer Dana</span>
+                            <span class="tile-sub">Kirim ke pengguna lain</span>
+                        </div>
+                    </button>
+                    <button class="action-tile tile-transfer" onclick="openSetPinModal()">
+                        <div class="tile-icon">🔒</div>
+                        <div class="tile-text">
+                            <span class="tile-title">PIN Keuangan</span>
+                            <span class="tile-sub">Buat / ubah PIN 6-digit</span>
+                        </div>
+                    </button>
+                    <button class="action-tile tile-refresh" onclick="fetchWalletProfile()">
+                        <div class="tile-icon">↻</div>
+                        <div class="tile-text">
+                            <span class="tile-title">Refresh Data</span>
+                            <span class="tile-sub">Perbarui saldo & mutasi</span>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Saved Beneficiaries Contacts Row -->
+            <div class="card beneficiaries-card">
+                <div class="beneficiaries-header">
+                    <div>
+                        <h4>Kontak Favorit Penerima</h4>
+                        <p class="section-desc">Klik kontak untuk langsung mengisi ID Dompet saat transfer</p>
+                    </div>
+                    <button class="btn btn-ghost btn-sm" onclick="openModal('add-contact-modal')">+ Tambah Kontak</button>
+                </div>
+                <div class="beneficiaries-list" id="beneficiaries-list">
+                    <span class="text-muted">Belum ada kontak favorit tersimpan.</span>
+                </div>
+            </div>
+
+            <!-- Transaction History Card with Filter & Search -->
+            <div class="card history-section">
+                <div class="history-controls">
+                    <div>
+                        <h4>Riwayat Mutasi Real-Time</h4>
+                        <p class="section-desc">Pencatatan pembukuan ganda berpasangan (Double-Entry Ledger)</p>
+                    </div>
+
+                    <div class="filter-controls">
+                        <!-- Search Box -->
+                        <div class="search-box">
+                            <input type="text" id="search-input" placeholder="Cari deskripsi / referensi..." oninput="filterHistory()">
+                        </div>
+                        <!-- Type Filter Pills -->
+                        <div class="filter-pills">
+                            <button class="pill active" onclick="setFilterType('ALL', this)">Semua</button>
+                            <button class="pill" onclick="setFilterType('TOPUP', this)">Top-Up</button>
+                            <button class="pill" onclick="setFilterType('DEBIT', this)">Debit (-)</button>
+                            <button class="pill" onclick="setFilterType('CREDIT', this)">Kredit (+)</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="custom-table">
+                        <thead>
+                            <tr>
+                                <th>Tanggal & Waktu</th>
+                                <th>No. Referensi</th>
+                                <th>Tipe Mutasi</th>
+                                <th>Nominal</th>
+                                <th>Saldo Akhir</th>
+                                <th>Keterangan</th>
+                            </tr>
+                        </thead>
+                        <tbody id="history-table-body">
+                            <tr>
+                                <td colspan="6" class="text-center">Memuat data riwayat transaksi...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- MODAL TOP-UP -->
+    <div id="topup-modal" class="modal-backdrop hidden" onclick="closeModalOnBackdrop(event, 'topup-modal')">
+        <div class="modal-card card">
+            <div class="modal-header">
+                <h3>Top-Up Saldo Dompet</h3>
+                <button class="close-btn" onclick="closeModal('topup-modal')">&times;</button>
+            </div>
+            <form onsubmit="handleTopup(event)">
+                <div class="form-group">
+                    <label for="topup-amount">Nominal Top-Up (Rp)</label>
+                    <input type="number" id="topup-amount" placeholder="100000" min="10000" step="1000" required>
+                    <!-- Quick Amount Badges -->
+                    <div class="preset-badges">
+                        <button type="button" class="preset-btn" onclick="setTopupAmount(50000)">50rb</button>
+                        <button type="button" class="preset-btn" onclick="setTopupAmount(100000)">100rb</button>
+                        <button type="button" class="preset-btn" onclick="setTopupAmount(250000)">250rb</button>
+                        <button type="button" class="preset-btn" onclick="setTopupAmount(500000)">500rb</button>
+                        <button type="button" class="preset-btn" onclick="setTopupAmount(1000000)">1jt</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="topup-desc">Keterangan / Catatan</label>
+                    <input type="text" id="topup-desc" value="Top-up Saldo Utama" required>
+                </div>
+                <button type="submit" class="btn btn-gradient btn-full">Proses Top-Up Saldo</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL TRANSFER -->
+    <div id="transfer-modal" class="modal-backdrop hidden" onclick="closeModalOnBackdrop(event, 'transfer-modal')">
+        <div class="modal-card card">
+            <div class="modal-header">
+                <h3>Transfer Dana Antar Pengguna</h3>
+                <button class="close-btn" onclick="closeModal('transfer-modal')">&times;</button>
+            </div>
+            <form onsubmit="handleTransferSubmit(event)">
+                <div class="form-group">
+                    <label for="transfer-receiver">ID Dompet Penerima (UUID)</label>
+                    <input type="text" id="transfer-receiver" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" required minlength="36" maxlength="36">
+                </div>
+                <div class="form-group">
+                    <label for="transfer-amount">Nominal Transfer (Rp)</label>
+                    <input type="number" id="transfer-amount" placeholder="50000" min="10000" step="1000" required>
+                    <!-- Quick Amount Badges -->
+                    <div class="preset-badges">
+                        <button type="button" class="preset-btn" onclick="setTransferAmount(25000)">25rb</button>
+                        <button type="button" class="preset-btn" onclick="setTransferAmount(50000)">50rb</button>
+                        <button type="button" class="preset-btn" onclick="setTransferAmount(100000)">100rb</button>
+                        <button type="button" class="preset-btn" onclick="setTransferAmount(250000)">250rb</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="transfer-desc">Keterangan / Catatan</label>
+                    <input type="text" id="transfer-desc" value="Transfer Dana PaySphere" required>
+                </div>
+                <button type="submit" class="btn btn-gradient btn-full">Lanjut Ke Konfirmasi PIN</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL TAMBAH KONTAK -->
+    <div id="add-contact-modal" class="modal-backdrop hidden" onclick="closeModalOnBackdrop(event, 'add-contact-modal')">
+        <div class="modal-card card">
+            <div class="modal-header">
+                <h3>Tambah Kontak Favorit</h3>
+                <button class="close-btn" onclick="closeModal('add-contact-modal')">&times;</button>
+            </div>
+            <form onsubmit="handleAddContact(event)">
+                <div class="form-group">
+                    <label for="contact-nickname">Nama Panggilan / Alias</label>
+                    <input type="text" id="contact-nickname" placeholder="Budi Santoso" required>
+                </div>
+                <div class="form-group">
+                    <label for="contact-wallet-id">ID Dompet (UUID)</label>
+                    <input type="text" id="contact-wallet-id" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" required minlength="36" maxlength="36">
+                </div>
+                <button type="submit" class="btn btn-gradient btn-full">Simpan Kontak Favorit</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL BUAT / UBAH PIN DIRECT -->
+    <div id="set-pin-modal" class="modal-backdrop hidden" onclick="closeModalOnBackdrop(event, 'set-pin-modal')">
+        <div class="modal-card card" style="max-width: 360px; text-align: center;">
+            <div class="modal-header">
+                <h3>Buat / Ubah PIN Keuangan</h3>
+                <button class="close-btn" onclick="closeModal('set-pin-modal')">&times;</button>
+            </div>
+            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">
+                Masukkan 6-digit angka PIN baru untuk mengamankan transaksi Anda.
+            </p>
+            <form onsubmit="handleDirectPinSubmit(event)">
+                <div class="form-group">
+                    <input type="password" id="direct-pin-input" placeholder="••••••" required minlength="6" maxlength="6" pattern="[0-9]{6}" style="font-size: 24px; letter-spacing: 8px; text-align: center; font-family: monospace;">
+                </div>
+                <button type="submit" class="btn btn-gradient btn-full">Simpan PIN Keuangan</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL CONFIRM PIN -->
+    <div id="pin-modal" class="modal-backdrop hidden" onclick="closeModalOnBackdrop(event, 'pin-modal')">
+        <div class="modal-card card" style="max-width: 360px; text-align: center;">
+            <div class="modal-header">
+                <h3 id="pin-modal-title">Masukkan PIN Keuangan</h3>
+                <button class="close-btn" onclick="closeModal('pin-modal')">&times;</button>
+            </div>
+            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;" id="pin-modal-desc">
+                Masukkan 6-digit PIN untuk mengonfirmasi transaksi transfer.
+            </p>
+            <form onsubmit="handlePinSubmit(event)">
+                <div class="form-group">
+                    <input type="password" id="pin-input" placeholder="••••••" required minlength="6" maxlength="6" pattern="[0-9]{6}" style="font-size: 24px; letter-spacing: 8px; text-align: center; font-family: monospace;">
+                </div>
+                <button type="submit" class="btn btn-gradient btn-full">Konfirmasi & Kirim</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

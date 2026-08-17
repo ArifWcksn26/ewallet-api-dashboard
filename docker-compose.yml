@@ -1,0 +1,83 @@
+version: '3.8'
+
+services:
+  # ==========================================
+  # 1. DATABASE: PostgreSQL (ACID Compliant)
+  # ==========================================
+  postgres:
+    image: postgres:16-alpine
+    container_name: ewallet_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-secretpassword}
+      POSTGRES_DB: ${POSTGRES_DB:-ewallet_db}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-ewallet_db}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - ewallet_network
+
+  # ==========================================
+  # 2. CACHE & LOCK: Redis
+  # ==========================================
+  redis:
+    image: redis:7-alpine
+    container_name: ewallet_redis
+    restart: always
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD:-redispassword}
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD:-redispassword}", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - ewallet_network
+
+  # ==========================================
+  # 3. BACKEND API: FastAPI Application
+  # ==========================================
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ewallet_api
+    restart: unless-stopped
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-secretpassword}@postgres:5432/${POSTGRES_DB:-ewallet_db}
+      - REDIS_URL=redis://:${REDIS_PASSWORD:-redispassword}@redis:6379/0
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY:-supersecretjwtkey12345}
+      - JWT_ALGORITHM=HS256
+      - ACCESS_TOKEN_EXPIRE_MINUTES=30
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - ewallet_network
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  ewallet_network:
+    driver: bridge
