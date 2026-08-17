@@ -135,46 +135,19 @@ body {
 
 .auth-card {
     width: 100%;
-    max-width: 440px;
-    padding: 40px 36px;
+    max-width: 420px;
+    padding: 38px 32px;
     background: rgba(15, 23, 42, 0.85);
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px);
+    backdrop-filter: blur(32px);
+    -webkit-backdrop-filter: blur(32px);
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 24px;
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(99, 102, 241, 0.1);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(99, 102, 241, 0.12);
 }
 
-/* Auth Hero Panel (Desktop Showcase) */
-.auth-hero-panel {
-    display: none;
+.margin-auto {
+    margin: 0 auto 14px auto;
 }
-
-@media (min-width: 960px) {
-    .app-layout {
-        max-width: 1200px;
-    }
-
-    .auth-wrapper {
-        display: grid;
-        grid-template-columns: 1.1fr 1fr;
-        gap: 48px;
-        align-items: center;
-        min-height: 88vh;
-        width: 100%;
-    }
-
-    .auth-hero-panel {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        gap: 28px;
-        padding: 48px 40px;
-        background: radial-gradient(circle at top left, rgba(99, 102, 241, 0.18), rgba(15, 23, 42, 0.65));
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 28px;
-        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
-    }
 
     .hero-brand {
         display: flex;
@@ -270,37 +243,32 @@ body {
 
 .brand-header {
     text-align: center;
-    margin-bottom: 28px;
+    margin-bottom: 26px;
 }
 
-.brand-badge {
-    display: inline-flex;
+.brand-title-row {
+    display: flex;
     align-items: center;
-    gap: 6px;
-    background: rgba(99, 102, 241, 0.15);
-    border: 1px solid rgba(99, 102, 241, 0.3);
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--primary-light);
-    margin-bottom: 12px;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 6px;
 }
 
-.brand-header h2 {
+.brand-title-row h2 {
     font-family: var(--font-display);
-    font-size: 32px;
+    font-size: 28px;
     font-weight: 800;
+    margin: 0;
     background: linear-gradient(135deg, #ffffff, #a5b4fc);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     letter-spacing: -0.5px;
 }
 
-.brand-header p {
+.brand-subtitle {
     color: var(--text-muted);
     font-size: 13px;
-    margin-top: 6px;
+    margin: 0;
 }
 
 .tab-switcher {
