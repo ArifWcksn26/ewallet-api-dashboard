@@ -890,3 +890,97 @@ body {
 .hidden {
     display: none !important;
 }
+
+/* Comprehensive Responsive & Max-Width Layout System */
+@media (max-width: 768px) {
+    .app-layout {
+        padding: 16px 12px;
+    }
+
+    .top-nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+        padding: 16px;
+    }
+
+    .nav-right {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .metrics-row {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .virtual-card {
+        padding: 20px;
+        height: auto;
+        min-height: 220px;
+    }
+
+    .amount-number {
+        font-size: clamp(26px, 8vw, 36px);
+    }
+
+    .actions-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .action-tile {
+        padding: 12px;
+        gap: 10px;
+    }
+
+    .history-controls {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 14px;
+    }
+
+    .filter-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-box input {
+        width: 100%;
+    }
+
+    .filter-pills {
+        overflow-x: auto;
+        padding-bottom: 4px;
+    }
+}
+
+@media (max-width: 480px) {
+    .actions-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .auth-card {
+        padding: 24px 18px;
+    }
+
+    #toast-container {
+        left: 16px;
+        right: 16px;
+        bottom: 16px;
+    }
+
+    .modal-card {
+        padding: 20px 16px;
+    }
+
+    .preset-badges {
+        justify-content: space-between;
+    }
+
+    .preset-btn {
+        flex: 1;
+        text-align: center;
+    }
+}
+
