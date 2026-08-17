@@ -2,6 +2,11 @@
 
 Sistem backend E-Wallet REST API dan Antarmuka Frontend Dashboard modern yang dibangun menggunakan FastAPI, PostgreSQL, Redis, dan Docker untuk transaksi keuangan yang aman, akurat, dan real-time.
 
+## Live Demo & Deployment
+
+- **PaySphere Dashboard (Web App):** [https://ewallet-api-dashboard-production.up.railway.app/](https://ewallet-api-dashboard-production.up.railway.app/)
+- **Interactive Swagger API Docs:** [https://ewallet-api-dashboard-production.up.railway.app/docs](https://ewallet-api-dashboard-production.up.railway.app/docs)
+
 ## Fitur Utama
 
 - Double-Entry Accounting: Pencatatan mutasi berpasangan (DEBIT & CREDIT) untuk menjamin transparansi data ledger.
@@ -20,6 +25,7 @@ Sistem backend E-Wallet REST API dan Antarmuka Frontend Dashboard modern yang di
 - Database: PostgreSQL 16
 - Cache / Idempotency: Redis 7
 - Containerization: Docker & Docker Compose
+- Deployment: Railway Cloud (Production)
 - Testing: Pytest & Pytest-Asyncio
 
 ## Daftar Endpoint API
@@ -36,7 +42,7 @@ Sistem backend E-Wallet REST API dan Antarmuka Frontend Dashboard modern yang di
 - DELETE /api/v1/beneficiaries/{id} : Hapus kontak favorit penerima
 - GET /health : Cek status kesehatan sistem & koneksi database/Redis
 
-## Cara Menjalankan
+## Cara Menjalankan Secara Lokal
 
 1. Jalankan PostgreSQL dan Redis di Docker:
    docker compose up -d postgres redis
@@ -49,10 +55,10 @@ Sistem backend E-Wallet REST API dan Antarmuka Frontend Dashboard modern yang di
 3. Jalankan server aplikasi:
    uvicorn app.main:app --reload
 
-4. Akses Dashboard Frontend di Browser:
+4. Akses Dashboard Frontend Lokal di Browser:
    http://localhost:8000
 
-5. Akses Swagger UI Dokumentasi API:
+5. Akses Swagger UI Dokumentasi API Lokal:
    http://localhost:8000/docs
 
 6. Jalankan pengujian otomatis:
