@@ -35,7 +35,7 @@ body {
     position: relative;
 }
 
-/* Ambient Glowing Background Orbs */
+/* Ambient Glowing Cyber Mesh & Grid Background */
 .mesh-background {
     position: fixed;
     top: 0;
@@ -45,46 +45,59 @@ body {
     z-index: -1;
     overflow: hidden;
     pointer-events: none;
+    background: radial-gradient(circle at 50% 20%, #0f172a 0%, #030712 100%);
+}
+
+.mesh-background::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+    background-size: 28px 28px;
+    opacity: 0.8;
 }
 
 .glow-orb {
     position: absolute;
     border-radius: 50%;
-    filter: blur(120px);
-    opacity: 0.25;
-    animation: floatOrb 12s infinite alternate ease-in-out;
+    filter: blur(140px);
+    opacity: 0.35;
+    animation: floatOrb 14s infinite alternate ease-in-out;
 }
 
 .orb-primary {
-    width: 500px;
-    height: 500px;
-    background: var(--primary);
-    top: -150px;
-    left: -150px;
+    width: 650px;
+    height: 650px;
+    background: linear-gradient(135deg, #4f46e5, #06b6d4);
+    top: -200px;
+    left: -200px;
 }
 
 .orb-emerald {
-    width: 600px;
-    height: 600px;
-    background: var(--accent-emerald);
-    bottom: -200px;
-    right: -200px;
-    animation-delay: -4s;
+    width: 700px;
+    height: 700px;
+    background: linear-gradient(135deg, #10b981, #059669);
+    bottom: -250px;
+    right: -250px;
+    animation-delay: -5s;
 }
 
 .orb-purple {
-    width: 400px;
-    height: 400px;
-    background: #a855f7;
-    top: 40%;
-    left: 50%;
+    width: 500px;
+    height: 500px;
+    background: linear-gradient(135deg, #8b5cf6, #ec4899);
+    top: 35%;
+    left: 45%;
     transform: translate(-50%, -50%);
-    animation-delay: -8s;
+    animation-delay: -9s;
 }
 
 @keyframes floatOrb {
     0% { transform: translateY(0) scale(1); }
-    100% { transform: translateY(40px) scale(1.1); }
+    100% { transform: translateY(50px) scale(1.15); }
 }
 
 /* Layout */
@@ -117,12 +130,19 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 85vh;
+    padding: 20px 0;
 }
 
 .auth-card {
     width: 100%;
     max-width: 440px;
-    padding: 36px 32px;
+    padding: 40px 36px;
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 24px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(99, 102, 241, 0.1);
 }
 
 /* Auth Hero Panel (Desktop Showcase) */
@@ -132,23 +152,28 @@ body {
 
 @media (min-width: 960px) {
     .app-layout {
-        max-width: 1180px;
+        max-width: 1200px;
     }
 
     .auth-wrapper {
         display: grid;
-        grid-template-columns: 1.15fr 1fr;
-        gap: 56px;
+        grid-template-columns: 1.1fr 1fr;
+        gap: 48px;
         align-items: center;
-        max-width: 1080px;
-        margin: 0 auto;
+        min-height: 88vh;
+        width: 100%;
     }
 
     .auth-hero-panel {
         display: flex;
         flex-direction: column;
-        gap: 24px;
-        padding-right: 20px;
+        justify-content: center;
+        gap: 28px;
+        padding: 48px 40px;
+        background: radial-gradient(circle at top left, rgba(99, 102, 241, 0.18), rgba(15, 23, 42, 0.65));
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 28px;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
     }
 
     .hero-brand {
