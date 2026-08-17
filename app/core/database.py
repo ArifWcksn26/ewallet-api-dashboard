@@ -3,20 +3,13 @@ from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sess
 from sqlalchemy.orm import DeclarativeBase
 from app.core.config import settings
 
-# Determine SSL configuration for asyncpg
-connect_args = {}
-db_url_lower = settings.ASYNC_DATABASE_URL.lower()
-
-if "sslmode=require" not in db_url_lower and "ssl=true" not in db_url_lower:
-    # Disable SSL for Railway internal networking or local development
-    connect_args = {"ssl": False}
-
+# Force disable SSL in connect_args for asyncpg to prevent _create_ssl_connection failures
 engine = create_async_engine(
     settings.ASYNC_DATABASE_URL,
     echo=False,
     future=True,
     pool_pre_ping=True,
-    connect_args=connect_args,
+    connect_args={"ssl": False},
 )
 
 AsyncSessionLocal = async_sessionmaker(

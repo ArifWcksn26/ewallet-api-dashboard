@@ -35,6 +35,13 @@ class Settings(BaseSettings):
             raw_url = raw_url.replace("postgres://", "postgresql+asyncpg://", 1)
         elif raw_url.startswith("postgresql://") and not raw_url.startswith("postgresql+asyncpg://"):
             raw_url = raw_url.replace("postgresql://", "postgresql+asyncpg://", 1)
+
+        # Strip libpq sslmode query string parameters unsupported by asyncpg URL parser
+        if "?" in raw_url:
+            base_url, query = raw_url.split("?", 1)
+            query_params = [p for p in query.split("&") if not p.startswith("sslmode=") and not p.startswith("ssl=")]
+            raw_url = base_url + ("?" + "&".join(query_params) if query_params else "")
+
         return raw_url
 
     @property
