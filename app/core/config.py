@@ -1,4 +1,5 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
+from typing import Optional
 
 
 class Settings(BaseSettings):
@@ -6,8 +7,15 @@ class Settings(BaseSettings):
     VERSION: str = "1.0.0"
     API_V1_STR: str = "/api/v1"
 
-    DATABASE_URL: str = "postgresql+asyncpg://postgres:secretpassword@localhost:5433/ewallet_db"
-    REDIS_URL: str = "redis://:redispassword@localhost:6379/0"
+    DATABASE_URL: Optional[str] = None
+    DATABASE_PUBLIC_URL: Optional[str] = None
+    DATABASE_PRIVATE_URL: Optional[str] = None
+    POSTGRES_URL: Optional[str] = None
+    POSTGRES_PRIVATE_URL: Optional[str] = None
+
+    REDIS_URL: Optional[str] = None
+    REDIS_PRIVATE_URL: Optional[str] = None
+    REDIS_PUBLIC_URL: Optional[str] = None
 
     JWT_SECRET_KEY: str = "supersecretjwtkey1234567890123456"
     JWT_ALGORITHM: str = "HS256"
@@ -15,12 +23,28 @@ class Settings(BaseSettings):
 
     @property
     def ASYNC_DATABASE_URL(self) -> str:
-        url = self.DATABASE_URL
-        if url.startswith("postgres://"):
-            url = url.replace("postgres://", "postgresql+asyncpg://", 1)
-        elif url.startswith("postgresql://") and not url.startswith("postgresql+asyncpg://"):
-            url = url.replace("postgresql://", "postgresql+asyncpg://", 1)
-        return url
+        raw_url = (
+            self.DATABASE_PRIVATE_URL
+            or self.DATABASE_URL
+            or self.POSTGRES_PRIVATE_URL
+            or self.POSTGRES_URL
+            or self.DATABASE_PUBLIC_URL
+            or "postgresql+asyncpg://postgres:secretpassword@localhost:5432/ewallet_db"
+        )
+        if raw_url.startswith("postgres://"):
+            raw_url = raw_url.replace("postgres://", "postgresql+asyncpg://", 1)
+        elif raw_url.startswith("postgresql://") and not raw_url.startswith("postgresql+asyncpg://"):
+            raw_url = raw_url.replace("postgresql://", "postgresql+asyncpg://", 1)
+        return raw_url
+
+    @property
+    def ASYNC_REDIS_URL(self) -> str:
+        return (
+            self.REDIS_PRIVATE_URL
+            or self.REDIS_URL
+            or self.REDIS_PUBLIC_URL
+            or "redis://:redispassword@localhost:6379/0"
+        )
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
