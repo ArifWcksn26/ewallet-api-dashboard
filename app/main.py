@@ -1,4 +1,4 @@
-# E-Wallet API & PaySphere Dashboard v1.5.3
+# E-Wallet API & PaySphere Dashboard v1.7.0
 import asyncio
 import logging
 from fastapi import FastAPI
