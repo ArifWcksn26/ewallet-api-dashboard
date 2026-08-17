@@ -4,6 +4,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from contextlib import asynccontextmanager
+from sqlalchemy import text
 from app.core.config import settings
 from app.core.database import engine, Base
 from app.core.redis import redis_client
@@ -17,26 +18,22 @@ logger = logging.getLogger(__name__)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Startup: Retry connecting to DB on cloud cold starts
-    max_retries = 10
-    retry_delay = 2
-    for attempt in range(1, max_retries + 1):
-        try:
-            async with engine.begin() as conn:
-                await conn.run_sync(Base.metadata.create_all)
-            logger.info("Database connection and tables initialized successfully.")
-            break
-        except Exception as e:
-            if attempt == max_retries:
-                logger.error(f"Failed to connect to database after {max_retries} attempts: {e}")
-                raise e
-            logger.warning(f"Database connection attempt {attempt}/{max_retries} failed ({e}). Retrying in {retry_delay}s...")
-            await asyncio.sleep(retry_delay)
+    # Startup: Try initializing database tables without crashing Uvicorn server on failure
+    try:
+        async with engine.begin() as conn:
+            await conn.run_sync(Base.metadata.create_all)
+        logger.info("Database connection and tables initialized successfully.")
+    except Exception as e:
+        logger.warning(f"Database initialization warning on startup (will retry on requests): {e}")
 
     yield
 
-    # Shutdown: Close connections
-    await engine.dispose()
+    # Shutdown: Close connections safely
+    try:
+        await engine.dispose()
+    except Exception:
+        pass
+
     try:
         await redis_client.close()
     except Exception:
@@ -65,7 +62,14 @@ app.include_router(api_router, prefix=settings.API_V1_STR)
 
 @app.get("/health")
 async def health_check():
-    # Test Redis connection
+    db_healthy = False
+    try:
+        async with engine.connect() as conn:
+            await conn.execute(text("SELECT 1"))
+        db_healthy = True
+    except Exception:
+        db_healthy = False
+
     redis_healthy = False
     try:
         redis_healthy = await redis_client.ping()
@@ -74,7 +78,7 @@ async def health_check():
 
     return {
         "status": "healthy",
-        "database": "connected",
+        "database": "connected" if db_healthy else "disconnected",
         "redis": "connected" if redis_healthy else "disconnected",
     }
 
