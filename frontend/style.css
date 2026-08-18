@@ -1577,129 +1577,55 @@ body {
     display: none !important;
 }
 
-/* Comprehensive Responsive & Max-Width Layout System */
-@media (max-width: 768px) {
-    .app-layout {
-        padding: 16px 12px;
-    }
+/* ==========================================================================
+   COMPREHENSIVE MOBILE & TABLET RESPONSIVE ENGINE (v2.6.2)
+   ========================================================================== */
 
-    .top-nav {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 14px;
-        padding: 16px;
-    }
-
-    .nav-right {
-        width: 100%;
-        justify-content: space-between;
-    }
-
-    .metrics-row {
-        grid-template-columns: 1fr;
-        gap: 16px;
-    }
-
-    .virtual-card {
-        padding: 20px;
-        height: auto;
-        min-height: 220px;
-    }
-
-    .amount-number {
-        font-size: clamp(26px, 8vw, 36px);
-    }
-
-    .actions-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-    }
-
-    .action-tile {
-        padding: 12px;
-        gap: 10px;
-    }
-
-    .history-controls {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 14px;
-    }
-
-    .filter-controls {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .search-box input {
-        width: 100%;
-    }
-
-    .filter-pills {
-        overflow-x: auto;
-        padding-bottom: 4px;
-    }
-}
-
-@media (max-width: 480px) {
-    .actions-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .auth-card {
-        padding: 24px 18px;
-    }
-
-    #toast-container {
-        left: 16px;
-        right: 16px;
-        bottom: 16px;
-    }
-
-    .modal-card {
-        padding: 20px 16px;
-    }
-
-    .preset-badges {
-        justify-content: space-between;
-    }
-
-    .preset-btn {
-        flex: 1;
-        text-align: center;
-    }
-}
-
-/* Option 1 Sidebar & Main Console Responsive Rules */
 @media (max-width: 950px) {
+    .app-layout {
+        padding: 12px 10px;
+    }
+
+    .dashboard-wrapper {
+        padding: 10px 0 24px 0;
+        gap: 14px;
+    }
+
     .app-sidebar-layout {
         grid-template-columns: 1fr;
-        gap: 16px;
+        gap: 14px;
     }
 
     .app-sidebar {
         position: static;
         min-height: auto;
-        padding: 16px 20px;
+        padding: 14px 16px;
         border-radius: 16px;
     }
 
     .sidebar-brand {
-        padding-bottom: 12px;
-        margin-bottom: 12px;
+        padding-bottom: 10px;
+        margin-bottom: 10px;
     }
 
     .sidebar-nav {
         flex-direction: row;
         overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
         gap: 8px;
-        padding-bottom: 8px;
+        padding-bottom: 10px;
         border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-        margin-bottom: 12px;
+        margin-bottom: 10px;
+        scrollbar-width: none;
+    }
+
+    .sidebar-nav::-webkit-scrollbar {
+        display: none;
     }
 
     .nav-item {
         white-space: nowrap;
+        flex-shrink: 0;
         padding: 8px 14px;
         font-size: 12.5px;
     }
@@ -1710,56 +1636,234 @@ body {
         justify-content: space-between;
         padding-top: 0;
         border-top: none;
+        gap: 10px;
     }
 
     .user-pill-sidebar {
         flex: 1;
+        min-width: 0;
+    }
+
+    .user-meta {
+        min-width: 0;
+        overflow: hidden;
+    }
+
+    .user-name {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
     .btn-sidebar-logout {
         width: auto;
-        padding: 8px 16px;
+        padding: 8px 14px;
+        flex-shrink: 0;
     }
 
     .main-header-bar {
-        padding: 16px;
+        padding: 14px 16px;
         flex-direction: column;
         align-items: flex-start;
-        gap: 10px;
+        gap: 8px;
+    }
+
+    .header-greeting {
+        font-size: 17px;
+    }
+
+    .atm-card-system {
+        grid-template-columns: 1fr;
+        gap: 14px;
     }
 }
 
-@media (max-width: 600px) {
-    .atm-actions-panel {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
+@media (max-width: 640px) {
+    .atm-debit-card {
+        padding: 18px 16px;
+        min-height: auto;
     }
 
-    .atm-debit-card {
-        padding: 18px;
+    .atm-card-header {
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 10px;
+    }
+
+    .atm-brand-group {
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    .atm-bank-name {
+        font-size: 17px;
+    }
+
+    .atm-card-type {
+        font-size: 8.5px;
+    }
+
+    .atm-balance-group {
+        flex-wrap: wrap;
+        gap: 6px;
+        align-items: baseline;
+    }
+
+    .atm-currency {
+        font-size: 16px;
     }
 
     .atm-amount {
-        font-size: 24px;
+        font-size: clamp(20px, 6vw, 26px);
+        word-break: break-all;
+    }
+
+    .atm-card-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        padding-top: 10px;
+    }
+
+    .atm-number-col {
+        width: 100%;
+    }
+
+    .atm-card-number-badge {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 11px;
+        padding: 6px 10px;
+    }
+
+    .atm-card-number-badge span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .atm-actions-panel {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        padding: 14px;
+    }
+
+    .btn-bank-action {
+        padding: 12px 8px;
+        font-size: 12px;
+        justify-content: center;
+        flex-direction: column;
+        gap: 6px;
+        text-align: center;
+        width: 100%;
     }
 
     .dashboard-stats-row {
         grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .stat-card {
+        padding: 14px 16px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .stat-amount {
+        font-size: 16px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .history-section {
+        padding: 16px 12px;
+    }
+
+    .history-controls {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .filter-controls {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .search-box input {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .filter-pills {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        gap: 6px;
+        padding-bottom: 4px;
+        width: 100%;
+        scrollbar-width: none;
+    }
+
+    .filter-pills::-webkit-scrollbar {
+        display: none;
+    }
+
+    .pill {
+        flex-shrink: 0;
+        white-space: nowrap;
+    }
+
+    .table-container {
+        border-radius: 10px;
+        margin-top: 10px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .custom-table th,
+    .custom-table td {
+        padding: 10px 10px;
+        font-size: 11.5px;
     }
 
     .pagination-bar {
         flex-direction: column;
         align-items: center;
-        gap: 12px;
+        gap: 10px;
+        width: 100%;
     }
 
     .pagination-btns {
         width: 100%;
         display: flex;
-        justify-content: space-between;
+        gap: 8px;
     }
 
     .pagination-btns .btn {
         flex: 1;
+        text-align: center;
+    }
+
+    .modal-card {
+        padding: 20px 16px;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    #toast-container {
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
     }
 }
