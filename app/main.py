@@ -84,5 +84,10 @@ async def health_check():
     }
 
 
-# Mount Static Frontend Web App at Root
-app.mount("/", StaticFiles(directory="frontend", html=True), name="frontend")
+import os
+
+# Mount Static Frontend Web App at Root (Robust Production Path Resolution)
+frontend_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "frontend"))
+if os.path.exists(frontend_dir):
+    app.mount("/", StaticFiles(directory=frontend_dir, html=True), name="frontend")
+
