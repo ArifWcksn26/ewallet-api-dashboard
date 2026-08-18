@@ -379,7 +379,7 @@ body {
 
 .app-layout {
     width: 100%;
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 0 16px;
     box-sizing: border-box;
@@ -389,9 +389,206 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    padding: 16px 0 24px 0;
-    gap: 16px;
+    padding: 20px 0 32px 0;
+    gap: 20px;
     box-sizing: border-box;
+}
+
+/* ==========================================================================
+   OPTION 1: SIDEBAR NAVIGATION CONSOLE LAYOUT
+   ========================================================================== */
+
+.app-sidebar-layout {
+    display: grid;
+    grid-template-columns: 260px minmax(0, 1fr);
+    gap: 20px;
+    width: 100%;
+    min-height: 100vh;
+    box-sizing: border-box;
+    align-items: start;
+}
+
+@media (max-width: 950px) {
+    .app-sidebar-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Sidebar Component */
+.app-sidebar {
+    position: sticky;
+    top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 24px 18px;
+    border-radius: 20px;
+    min-height: calc(100vh - 40px);
+    box-sizing: border-box;
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--card-border);
+}
+
+@media (max-width: 950px) {
+    .app-sidebar {
+        position: static;
+        min-height: auto;
+    }
+}
+
+.sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    margin-bottom: 20px;
+}
+
+.sidebar-brand .brand-logo-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+}
+
+.brand-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.brand-title {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: -0.5px;
+}
+
+.brand-tag {
+    font-size: 9.5px;
+    font-weight: 700;
+    color: var(--primary-light);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    color: var(--text-muted);
+    font-size: 13.5px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.nav-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+}
+
+.nav-item.active {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.25), rgba(6, 182, 212, 0.15));
+    color: #ffffff;
+    border: 1px solid rgba(99, 102, 241, 0.35);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
+}
+
+.sidebar-user-footer {
+    padding-top: 18px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.user-pill-sidebar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 10px;
+    border-radius: 12px;
+    background: rgba(10, 15, 26, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.btn-sidebar-logout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    background: rgba(244, 63, 94, 0.1);
+    color: var(--accent-rose);
+    border: 1px solid rgba(244, 63, 94, 0.2);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-sidebar-logout:hover {
+    background: rgba(244, 63, 94, 0.25);
+    color: #ffffff;
+}
+
+/* Main Console Content Area */
+.app-main-console {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-width: 0;
+}
+
+.main-header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 24px;
+    border-radius: 18px;
+}
+
+.header-greeting {
+    font-size: 20px;
+    font-weight: 800;
+    margin: 0 0 4px 0;
+    color: #ffffff;
+    font-family: var(--font-display);
+}
+
+/* Horizontal 3 Stat Metrics Row */
+.dashboard-stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .dashboard-stats-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Bottom Grid for Ledger Table & Favorites */
+.dashboard-bottom-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    width: 100%;
 }
 
 /* Top Navbar */
@@ -492,19 +689,310 @@ body {
     color: var(--accent-emerald);
 }
 
-/* Financial Virtual Debit Card */
-.metrics-row {
+/* Real ATM Platinum Debit Card System */
+.atm-card-system {
     display: grid;
-    grid-template-columns: 1.15fr 1fr;
-    gap: 16px;
-    margin-bottom: 0;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
     align-items: stretch;
 }
 
-@media (max-width: 850px) {
-    .metrics-row {
+@media (max-width: 950px) {
+    .atm-card-system {
         grid-template-columns: 1fr;
     }
+}
+
+/* Realistic ATM Debit Card */
+.atm-debit-card {
+    position: relative;
+    padding: 24px 28px;
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 55%, #312e81 100%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 16px 36px rgba(15, 23, 42, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.25);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 230px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.atm-debit-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 42px rgba(15, 23, 42, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.35);
+}
+
+.atm-card-glow {
+    position: absolute;
+    top: -40%;
+    right: -15%;
+    width: 260px;
+    height: 260px;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.3) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+/* Header: Bank Brand & Card Type */
+.atm-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+}
+
+.atm-brand-group {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+}
+
+.atm-bank-name {
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: #ffffff;
+}
+
+.atm-card-type {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    color: #818cf8;
+}
+
+/* Hardware EMV Chip & Contactless Waves */
+.atm-card-hardware {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 14px;
+}
+
+.emv-gold-chip {
+    width: 44px;
+    height: 32px;
+    background: linear-gradient(135deg, #d97706 0%, #fbbf24 50%, #b45309 100%);
+    border-radius: 6px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.4), 0 2px 6px rgba(0, 0, 0, 0.3);
+    border: 1px solid #92400e;
+}
+
+.chip-line-h {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.chip-line-v {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 45%;
+    width: 1px;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.contactless-waves {
+    color: rgba(255, 255, 255, 0.6);
+    display: flex;
+    align-items: center;
+}
+
+/* Balance Section */
+.atm-balance-section {
+    margin-bottom: 16px;
+}
+
+.atm-balance-label {
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 4px;
+}
+
+.atm-balance-group {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+}
+
+.atm-currency {
+    font-size: 20px;
+    font-weight: 800;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.atm-amount {
+    font-size: 32px;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: -0.5px;
+}
+
+/* Footer Details: Cardholder & Number */
+.atm-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.atm-meta-label {
+    display: block;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 2px;
+}
+
+.atm-holder-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.atm-card-number-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 8px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    font-family: monospace;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #a5b4fc;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.atm-card-number-badge:hover {
+    background: rgba(255, 255, 255, 0.18);
+    color: #ffffff;
+}
+
+/* Actions Panel Beside Card */
+.atm-actions-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: 10px;
+    padding: 18px 20px;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+}
+
+.btn-bank-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.action-topup {
+    background: #10b981;
+    color: #ffffff;
+    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+}
+
+.action-topup:hover {
+    background: #059669;
+    transform: translateY(-1.5px);
+    box-shadow: 0 6px 18px rgba(16, 185, 129, 0.4);
+}
+
+.action-transfer {
+    background: rgba(99, 102, 241, 0.2);
+    color: #a5b4fc;
+    border-color: rgba(99, 102, 241, 0.4);
+}
+
+.action-transfer:hover {
+    background: rgba(99, 102, 241, 0.35);
+    color: #ffffff;
+    transform: translateY(-1.5px);
+}
+
+.action-pin {
+    background: rgba(245, 158, 11, 0.15);
+    color: #fbbf24;
+    border-color: rgba(245, 158, 11, 0.3);
+}
+
+.action-pin:hover {
+    background: rgba(245, 158, 11, 0.28);
+    color: #ffffff;
+    transform: translateY(-1.5px);
+}
+
+.action-refresh {
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--text-main);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.action-refresh:hover {
+    background: rgba(255, 255, 255, 0.12);
+    transform: translateY(-1.5px);
+}
+
+/* 2-Column Bank Grid Container */
+.bank-grid-container {
+    display: grid;
+    grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr);
+    gap: 16px;
+    align-items: start;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+@media (max-width: 1024px) {
+    .bank-grid-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+.bank-main-panel {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    width: 100%;
+}
+
+.bank-side-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-width: 0;
+    width: 100%;
+}
+
+.bank-widget {
+    padding: 18px 20px;
+    border-radius: 16px;
 }
 
 .virtual-card {
@@ -647,6 +1135,8 @@ body {
     align-items: center;
     gap: 16px;
     padding: 14px 20px;
+    min-width: 0;
+    overflow: hidden;
 }
 
 .stat-icon-wrapper {
@@ -658,6 +1148,7 @@ body {
     align-items: center;
     font-size: 18px;
     font-weight: 700;
+    flex-shrink: 0;
 }
 
 .inflow-icon {
@@ -686,8 +1177,11 @@ body {
 
 .stat-amount {
     font-family: var(--font-display);
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* Beneficiaries Section */
@@ -900,38 +1394,48 @@ body {
     border-color: var(--primary);
 }
 
-/* Custom Table */
+/* Custom Table Spacing & Responsiveness */
 .table-container {
     flex: 1;
     min-height: 0;
     overflow-y: auto;
     overflow-x: auto;
-    border-radius: 8px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(10, 15, 26, 0.4);
 }
 
 .custom-table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
     font-size: 13px;
+    white-space: nowrap;
 }
 
 .custom-table th {
     position: sticky;
     top: 0;
-    background: #101625;
+    background: #0b1120;
     z-index: 2;
-    padding: 10px 12px;
+    padding: 12px 18px;
     text-align: left;
     color: var(--text-muted);
     font-size: 11px;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.8px;
     border-bottom: 1px solid var(--card-border);
 }
 
 .custom-table td {
-    padding: 14px 12px;
+    padding: 14px 18px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    vertical-align: middle;
+}
+
+.custom-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.025);
 }
 
 .badge-pill {
@@ -1163,5 +1667,99 @@ body {
     .preset-btn {
         flex: 1;
         text-align: center;
+    }
+}
+
+/* Option 1 Sidebar & Main Console Responsive Rules */
+@media (max-width: 950px) {
+    .app-sidebar-layout {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .app-sidebar {
+        position: static;
+        min-height: auto;
+        padding: 16px 20px;
+        border-radius: 16px;
+    }
+
+    .sidebar-brand {
+        padding-bottom: 12px;
+        margin-bottom: 12px;
+    }
+
+    .sidebar-nav {
+        flex-direction: row;
+        overflow-x: auto;
+        gap: 8px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        margin-bottom: 12px;
+    }
+
+    .nav-item {
+        white-space: nowrap;
+        padding: 8px 14px;
+        font-size: 12.5px;
+    }
+
+    .sidebar-user-footer {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding-top: 0;
+        border-top: none;
+    }
+
+    .user-pill-sidebar {
+        flex: 1;
+    }
+
+    .btn-sidebar-logout {
+        width: auto;
+        padding: 8px 16px;
+    }
+
+    .main-header-bar {
+        padding: 16px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 600px) {
+    .atm-actions-panel {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .atm-debit-card {
+        padding: 18px;
+    }
+
+    .atm-amount {
+        font-size: 24px;
+    }
+
+    .dashboard-stats-row {
+        grid-template-columns: 1fr;
+    }
+
+    .pagination-bar {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .pagination-btns {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .pagination-btns .btn {
+        flex: 1;
     }
 }

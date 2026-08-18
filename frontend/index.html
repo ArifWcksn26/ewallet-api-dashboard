@@ -94,250 +94,285 @@
             </div>
         </section>
 
-        <!-- MAIN DASHBOARD SECTION -->
+        <!-- MAIN DASHBOARD SECTION (OPTION 1: SIDEBAR NAVIGATION CONSOLE) -->
         <section id="dashboard-section" class="dashboard-wrapper hidden">
-            <!-- Navbar Header -->
-            <header class="top-nav card">
-                <div class="nav-brand">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round" class="brand-icon-raw sm">
-                        <rect x="2" y="5" width="20" height="14" rx="3"></rect>
-                        <line x1="2" y1="10" x2="22" y2="10"></line>
-                    </svg>
-                    <div>
-                        <span class="brand-title">PaySphere</span>
-                        <span class="brand-tag">PRO DASHBOARD</span>
-                    </div>
-                </div>
-                <div class="nav-right">
-                    <div class="user-pill">
-                        <div class="user-avatar" id="avatar-initials">US</div>
-                        <div class="user-meta">
-                            <span class="user-name" id="user-display-name">User Name</span>
-                            <span class="user-status">Verified Account</span>
+            <div class="app-sidebar-layout">
+                <!-- 1. LEFT SIDEBAR NAVIGATION -->
+                <aside class="app-sidebar card">
+                    <div class="sidebar-brand">
+                        <div class="brand-logo-icon">P</div>
+                        <div class="brand-text">
+                            <span class="brand-title">PaySphere</span>
+                            <span class="brand-tag">BANKING CONSOLE</span>
                         </div>
                     </div>
-                    <button class="btn btn-ghost btn-sm" onclick="handleLogout()">Keluar</button>
-                </div>
-            </header>
 
-            <!-- Metrics & Analytics Overview Cards -->
-            <div class="metrics-row">
-                <!-- Virtual Debit Card -->
-                <div class="financial-card virtual-card">
-                    <div class="card-top">
-                        <span class="card-brand">PaySphere Platinum</span>
-                        <span class="contactless-icon">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M5 12.55a11 11 0 0 1 14.08 0"></path>
-                                <path d="M1.42 9a16 16 0 0 1 21.16 0"></path>
-                                <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
-                                <line x1="12" y1="20" x2="12.01" y2="20"></line>
-                            </svg>
-                        </span>
+                    <nav class="sidebar-nav">
+                        <a href="#dashboard" class="nav-item active" onclick="event.preventDefault()">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                            <span>Ikhtisar Akun</span>
+                        </a>
+                        <a href="#topup" class="nav-item" onclick="event.preventDefault(); openModal('topup-modal')">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+                            <span>Top-Up Saldo</span>
+                        </a>
+                        <a href="#transfer" class="nav-item" onclick="event.preventDefault(); openModal('transfer-modal')">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                            <span>Transfer Dana</span>
+                        </a>
+                        <a href="#pin" class="nav-item" onclick="event.preventDefault(); openSetPinModal()">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                            <span>PIN Keuangan</span>
+                        </a>
+                        <a href="#refresh" class="nav-item" onclick="event.preventDefault(); fetchWalletProfile()">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6"></path><path d="M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path></svg>
+                            <span>Refresh Data</span>
+                        </a>
+                    </nav>
+
+                    <div class="sidebar-user-footer">
+                        <div class="user-pill-sidebar">
+                            <div class="user-avatar" id="avatar-initials">US</div>
+                            <div class="user-meta">
+                                <span class="user-name" id="user-display-name">User Name</span>
+                                <span class="user-status">Verified Account</span>
+                            </div>
+                        </div>
+                        <button class="btn-sidebar-logout" onclick="handleLogout()" title="Keluar">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                            <span>Keluar</span>
+                        </button>
                     </div>
-                    <div class="card-mid">
-                        <span class="balance-label">TOTAL SALDO AKTIF</span>
-                        <div class="balance-group">
-                            <span class="currency">Rp</span>
-                            <span class="amount-number" id="wallet-balance-display">0</span>
-                            <button class="toggle-eye-btn" onclick="toggleBalanceVisibility()"
-                                title="Sembunyikan/Tampilkan Saldo">
-                                <span id="eye-icon">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                                        <circle cx="12" cy="12" r="3"></circle>
+                </aside>
+
+                <!-- 2. MAIN CONTENT CONSOLE -->
+                <main class="app-main-console">
+                    <!-- Top Console Header -->
+                    <header class="main-header-bar card">
+                        <div class="header-left">
+                            <h2 class="header-greeting">Selamat Datang di Konsol Bank</h2>
+                            <p class="section-desc">Ringkasan rekening tabungan dan layanan dompet digital PaySphere</p>
+                        </div>
+                        <div class="header-right">
+                            <div class="account-status-badge">
+                                <span class="badge-dot"></span> REKENING AKTIF
+                            </div>
+                        </div>
+                    </header>
+
+                    <!-- Section 1: Real ATM Debit Card & Quick Action Control Panel -->
+                    <div class="atm-card-system">
+                        <!-- Real ATM Debit Card Container -->
+                        <div class="atm-debit-card">
+                            <div class="atm-card-glow"></div>
+
+                            <!-- Card Header: Bank Branding & Status -->
+                            <div class="atm-card-header">
+                                <div class="atm-brand-group">
+                                    <span class="atm-bank-name">PaySphere</span>
+                                    <span class="atm-card-type">PLATINUM DEBIT</span>
+                                </div>
+                                <div class="account-status-badge">
+                                    <span class="badge-dot"></span> AKTIF
+                                </div>
+                            </div>
+
+                            <!-- Card Chip & Contactless Signal -->
+                            <div class="atm-card-hardware">
+                                <div class="emv-gold-chip">
+                                    <div class="chip-line-h"></div>
+                                    <div class="chip-line-v"></div>
+                                </div>
+                                <div class="contactless-waves" title="Contactless Payment Enabled">
+                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M5 12.55a11 11 0 0 1 14.08 0"></path>
+                                        <path d="M1.42 9a16 16 0 0 1 21.16 0"></path>
+                                        <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+                                        <line x1="12" y1="20" x2="12.01" y2="20"></line>
                                     </svg>
-                                </span>
+                                </div>
+                            </div>
+
+                            <!-- Card Balance Display -->
+                            <div class="atm-balance-section">
+                                <span class="atm-balance-label">TOTAL SALDO AKTIF</span>
+                                <div class="atm-balance-group">
+                                    <span class="atm-currency">Rp</span>
+                                    <span class="atm-amount" id="wallet-balance-display">0</span>
+                                    <button class="toggle-eye-btn" onclick="toggleBalanceVisibility()" title="Sembunyikan/Tampilkan Saldo">
+                                        <span id="eye-icon">
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                                <circle cx="12" cy="12" r="3"></circle>
+                                            </svg>
+                                        </span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Card Bottom Details: Cardholder & Wallet ID Number -->
+                            <div class="atm-card-footer">
+                                <div class="atm-holder-col">
+                                    <span class="atm-meta-label">PEMILIK KARTU</span>
+                                    <span class="atm-holder-name" id="card-holder-name">-</span>
+                                </div>
+                                <div class="atm-number-col">
+                                    <span class="atm-meta-label">NO. REKENING / ID KARTU</span>
+                                    <div class="atm-card-number-badge" onclick="copyWalletId()" title="Klik untuk salin ID">
+                                        <span id="card-wallet-id">-</span>
+                                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Toolbar Panel Beside Card -->
+                        <div class="atm-actions-panel">
+                            <button class="btn-bank-action action-topup" onclick="openModal('topup-modal')">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <line x1="12" y1="8" x2="12" y2="16"></line>
+                                    <line x1="8" y1="12" x2="16" y2="12"></line>
+                                </svg>
+                                <span>Top-Up Saldo</span>
+                            </button>
+                            <button class="btn-bank-action action-transfer" onclick="openModal('transfer-modal')">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                                    <polyline points="7 7 17 7 17 17"></polyline>
+                                </svg>
+                                <span>Transfer</span>
+                            </button>
+                            <button class="btn-bank-action action-pin" onclick="openSetPinModal()">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                </svg>
+                                <span>PIN Keuangan</span>
+                            </button>
+                            <button class="btn-bank-action action-refresh" onclick="fetchWalletProfile()">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21.5 2v6h-6"></path>
+                                    <path d="M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path>
+                                </svg>
+                                <span>Refresh</span>
                             </button>
                         </div>
                     </div>
-                    <div class="card-bottom">
-                        <div class="holder-details">
-                            <span class="detail-label">PEMILIK DOMPET</span>
-                            <span class="detail-val" id="card-holder-name">-</span>
+
+                    <!-- Section 2: 3 Financial Metrics Cards Row -->
+                    <div class="dashboard-stats-row">
+                        <div class="card stat-card stat-inflow">
+                            <div class="stat-icon-wrapper inflow-icon">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                                    <polyline points="19 12 12 19 5 12"></polyline>
+                                </svg>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-label">Total Uang Masuk</span>
+                                <span class="stat-amount" id="stat-total-inflow">Rp 0</span>
+                            </div>
                         </div>
-                        <div class="holder-details">
-                            <span class="detail-label">ID DOMPET (SALIN)</span>
-                            <div class="copy-badge" onclick="copyWalletId()">
-                                <span id="card-wallet-id">-</span>
-                                <span class="copy-icon">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                                    </svg>
-                                </span>
+                        <div class="card stat-card stat-outflow">
+                            <div class="stat-icon-wrapper outflow-icon">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="12" y1="19" x2="12" y2="5"></line>
+                                    <polyline points="5 12 12 5 19 12"></polyline>
+                                </svg>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-label">Total Uang Keluar</span>
+                                <span class="stat-amount" id="stat-total-outflow">Rp 0</span>
+                            </div>
+                        </div>
+                        <div class="card stat-card stat-count">
+                            <div class="stat-icon-wrapper count-icon">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="17 1 21 5 17 9"></polyline>
+                                    <path d="M3 11V9a4 4 0 0 1 4-4h14"></path>
+                                    <polyline points="7 23 3 19 7 15"></polyline>
+                                    <path d="M21 13v2a4 4 0 0 1-4 4H3"></path>
+                                </svg>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-label">Frekuensi Mutasi</span>
+                                <span class="stat-amount" id="stat-total-count">0 Transaksi</span>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Stats Cards -->
-                <div class="stats-column">
-                    <div class="card stat-card stat-inflow">
-                        <div class="stat-icon-wrapper inflow-icon">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                <line x1="12" y1="5" x2="12" y2="19"></line>
-                                <polyline points="19 12 12 19 5 12"></polyline>
-                            </svg>
+                    <!-- Section 3: Bottom Grid (Mutasi Rekening & Transfer Favorit) -->
+                    <div class="dashboard-bottom-grid">
+                        <div class="card history-section">
+                            <div class="history-controls">
+                                <div>
+                                    <h4>Mutasi Rekening Real-Time</h4>
+                                    <p class="section-desc">Pencatatan pembukuan ganda (Double-Entry Ledger Audit)</p>
+                                </div>
+
+                                <div class="filter-controls">
+                                    <div class="search-box">
+                                        <input type="text" id="search-input" placeholder="Cari mutasi..." oninput="filterHistory()">
+                                    </div>
+                                    <div class="filter-pills">
+                                        <button class="pill active" onclick="setFilterType('ALL', this)">Semua</button>
+                                        <button class="pill" onclick="setFilterType('TOPUP', this)">Top-Up</button>
+                                        <button class="pill" onclick="setFilterType('DEBIT', this)">Debit (-)</button>
+                                        <button class="pill" onclick="setFilterType('CREDIT', this)">Kredit (+)</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="table-container">
+                                <table class="custom-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Tanggal & Waktu</th>
+                                            <th>No. Referensi</th>
+                                            <th>Tipe Mutasi</th>
+                                            <th>Nominal</th>
+                                            <th>Saldo Akhir</th>
+                                            <th>Keterangan</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="history-table-body">
+                                        <tr>
+                                            <td colspan="6" style="text-align:center; padding:30px;" class="text-muted">
+                                                Memuat mutasi rekening...
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="pagination-bar">
+                                <span class="pagination-info" id="pagination-info">Menampilkan 0 dari 0 transaksi</span>
+                                <div class="pagination-btns">
+                                    <button class="btn btn-secondary btn-sm" id="prev-page-btn" onclick="changePage(-1)" disabled>Sebelumnya</button>
+                                    <button class="btn btn-secondary btn-sm" id="next-page-btn" onclick="changePage(1)" disabled>Selanjutnya</button>
+                                </div>
+                            </div>
                         </div>
-                        <div class="stat-info">
-                            <span class="stat-label">Total Uang Masuk</span>
-                            <span class="stat-amount" id="stat-total-inflow">Rp 0</span>
+
+                        <!-- Beneficiaries Card -->
+                        <div class="card bank-widget beneficiaries-card">
+                            <div class="beneficiaries-header">
+                                <div>
+                                    <h4>Transfer Favorit</h4>
+                                    <p class="section-desc">Daftar penerima tersimpan</p>
+                                </div>
+                                <button class="btn btn-ghost btn-sm" onclick="openModal('add-contact-modal')">+ Tambah</button>
+                            </div>
+                            <div class="beneficiaries-list" id="beneficiaries-list" style="margin-top: 10px;">
+                                <span class="text-muted">Belum ada kontak tersimpan.</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="card stat-card stat-outflow">
-                        <div class="stat-icon-wrapper outflow-icon">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                <line x1="12" y1="19" x2="12" y2="5"></line>
-                                <polyline points="5 12 12 5 19 12"></polyline>
-                            </svg>
-                        </div>
-                        <div class="stat-info">
-                            <span class="stat-label">Total Uang Keluar</span>
-                            <span class="stat-amount" id="stat-total-outflow">Rp 0</span>
-                        </div>
-                    </div>
-                    <div class="card stat-card stat-count">
-                        <div class="stat-icon-wrapper count-icon">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="17 1 21 5 17 9"></polyline>
-                                <path d="M3 11V9a4 4 0 0 1 4-4h14"></path>
-                                <polyline points="7 23 3 19 7 15"></polyline>
-                                <path d="M21 13v2a4 4 0 0 1-4 4H3"></path>
-                            </svg>
-                        </div>
-                        <div class="stat-info">
-                            <span class="stat-label">Total Mutasi Transaksi</span>
-                            <span class="stat-amount" id="stat-total-count">0 Transaksi</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Quick Action Bar -->
-            <div class="card actions-bar">
-                <span class="section-title">Layanan & Aksi Cepat</span>
-                <div class="actions-grid">
-                    <button class="action-tile tile-topup" onclick="openModal('topup-modal')">
-                        <div class="tile-icon">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                <line x1="12" y1="5" x2="12" y2="19"></line>
-                                <line x1="5" y1="12" x2="19" y2="12"></line>
-                            </svg>
-                        </div>
-                        <div class="tile-text">
-                            <span class="tile-title">Top-Up Saldo</span>
-                            <span class="tile-sub">Tambah dana ke akun</span>
-                        </div>
-                    </button>
-                    <button class="action-tile tile-transfer" onclick="openModal('transfer-modal')">
-                        <div class="tile-icon">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                <line x1="22" y1="2" x2="11" y2="13"></line>
-                                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-                            </svg>
-                        </div>
-                        <div class="tile-text">
-                            <span class="tile-title">Transfer Dana</span>
-                            <span class="tile-sub">Kirim ke pengguna lain</span>
-                        </div>
-                    </button>
-                    <button class="action-tile tile-transfer" onclick="openSetPinModal()">
-                        <div class="tile-icon">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                            </svg>
-                        </div>
-                        <div class="tile-text">
-                            <span class="tile-title">PIN Keuangan</span>
-                            <span class="tile-sub">Buat / ubah PIN 6-digit</span>
-                        </div>
-                    </button>
-                    <button class="action-tile tile-refresh" onclick="fetchWalletProfile()">
-                        <div class="tile-icon">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="23 4 23 10 17 10"></polyline>
-                                <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
-                            </svg>
-                        </div>
-                        <div class="tile-text">
-                            <span class="tile-title">Refresh Data</span>
-                            <span class="tile-sub">Perbarui saldo & mutasi</span>
-                        </div>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Saved Beneficiaries Contacts Row -->
-            <div class="card beneficiaries-card">
-                <div class="beneficiaries-header">
-                    <div>
-                        <h4>Kontak Favorit Penerima</h4>
-                        <p class="section-desc">Klik kontak untuk langsung mengisi ID Dompet saat transfer</p>
-                    </div>
-                    <button class="btn btn-ghost btn-sm" onclick="openModal('add-contact-modal')">+ Tambah
-                        Kontak</button>
-                </div>
-                <div class="beneficiaries-list" id="beneficiaries-list">
-                    <span class="text-muted">Belum ada kontak favorit tersimpan.</span>
-                </div>
-            </div>
-
-            <!-- Transaction History Card with Filter & Search -->
-            <div class="card history-section">
-                <div class="history-controls">
-                    <div>
-                        <h4>Riwayat Mutasi Real-Time</h4>
-                        <p class="section-desc">Pencatatan pembukuan ganda berpasangan (Double-Entry Ledger)</p>
-                    </div>
-
-                    <div class="filter-controls">
-                        <!-- Search Box -->
-                        <div class="search-box">
-                            <input type="text" id="search-input" placeholder="Cari deskripsi / referensi..."
-                                oninput="filterHistory()">
-                        </div>
-                        <!-- Type Filter Pills -->
-                        <div class="filter-pills">
-                            <button class="pill active" onclick="setFilterType('ALL', this)">Semua</button>
-                            <button class="pill" onclick="setFilterType('TOPUP', this)">Top-Up</button>
-                            <button class="pill" onclick="setFilterType('DEBIT', this)">Debit (-)</button>
-                            <button class="pill" onclick="setFilterType('CREDIT', this)">Kredit (+)</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="table-container">
-                    <table class="custom-table">
-                        <thead>
-                            <tr>
-                                <th>Tanggal & Waktu</th>
-                                <th>No. Referensi</th>
-                                <th>Tipe Mutasi</th>
-                                <th>Nominal</th>
-                                <th>Saldo Akhir</th>
-                                <th>Keterangan</th>
-                            </tr>
-                        </thead>
-                        <tbody id="history-table-body">
-                            <tr>
-                                <td colspan="6" class="text-center">Memuat data riwayat transaksi...</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                </main>
             </div>
         </section>
     </div>

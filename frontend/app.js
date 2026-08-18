@@ -212,9 +212,18 @@ function calculateAnalytics(items) {
     document.getElementById("stat-total-count").innerText = `${items.length} Mutasi`;
 }
 
+let currentPage = 1;
+const pageSize = 10;
+
+function changePage(delta) {
+    currentPage += delta;
+    renderHistoryTable();
+}
+
 // Filter Type Pills
 function setFilterType(type, element) {
     activeFilter = type;
+    currentPage = 1;
     document.querySelectorAll('.filter-pills .pill').forEach(p => p.classList.remove('active'));
     element.classList.add('active');
     renderHistoryTable();
@@ -222,12 +231,16 @@ function setFilterType(type, element) {
 
 // Search & Filter render
 function filterHistory() {
+    currentPage = 1;
     renderHistoryTable();
 }
 
 function renderHistoryTable() {
     const searchQuery = document.getElementById("search-input").value.toLowerCase();
     const tbody = document.getElementById("history-table-body");
+    const paginationInfo = document.getElementById("pagination-info");
+    const prevBtn = document.getElementById("prev-page-btn");
+    const nextBtn = document.getElementById("next-page-btn");
 
     const filtered = rawTransactions.filter(item => {
         const entryType = item.ledger_entry ? item.ledger_entry.entry_type : item.type;
@@ -243,12 +256,34 @@ function renderHistoryTable() {
         return descMatch || refMatch;
     });
 
-    if (filtered.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="6" class="text-center">Tidak ada transaksi ditemukan.</td></tr>`;
+    const totalItems = filtered.length;
+    const totalPages = Math.ceil(totalItems / pageSize) || 1;
+
+    if (currentPage > totalPages) currentPage = totalPages;
+    if (currentPage < 1) currentPage = 1;
+
+    const startIdx = (currentPage - 1) * pageSize;
+    const pageItems = filtered.slice(startIdx, startIdx + pageSize);
+
+    if (paginationInfo) {
+        if (totalItems === 0) {
+            paginationInfo.innerText = "Menampilkan 0 dari 0 transaksi";
+        } else {
+            const startDisplay = startIdx + 1;
+            const endDisplay = Math.min(startIdx + pageSize, totalItems);
+            paginationInfo.innerText = `Menampilkan ${startDisplay}-${endDisplay} dari ${totalItems} transaksi`;
+        }
+    }
+
+    if (prevBtn) prevBtn.disabled = currentPage <= 1;
+    if (nextBtn) nextBtn.disabled = currentPage >= totalPages;
+
+    if (pageItems.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" class="text-center" style="padding: 24px;">Tidak ada transaksi ditemukan.</td></tr>`;
         return;
     }
 
-    tbody.innerHTML = filtered.map(item => {
+    tbody.innerHTML = pageItems.map(item => {
         const dateStr = new Date(item.created_at).toLocaleString('id-ID');
         const entryType = item.ledger_entry ? item.ledger_entry.entry_type : item.type;
         const isCredit = entryType === "CREDIT" || item.type === "TOPUP";
@@ -266,12 +301,12 @@ function renderHistoryTable() {
 
         return `
             <tr>
-                <td>${dateStr}</td>
-                <td><small style="font-family: monospace; opacity: 0.8;">${item.reference_id}</small></td>
+                <td style="font-weight: 500;">${dateStr}</td>
+                <td><small style="font-family: monospace; font-size: 11.5px; opacity: 0.85; background: rgba(255,255,255,0.06); padding: 3px 8px; border-radius: 6px;">${item.reference_id}</small></td>
                 <td><span class="badge-pill ${badgeClass}">${entryType}</span></td>
-                <td class="${amountClass}">${amountPrefix} ${formattedAmount}</td>
-                <td><strong>${balanceAfter}</strong></td>
-                <td>${item.description || '-'}</td>
+                <td class="${amountClass}" style="font-size: 13.5px;">${amountPrefix} ${formattedAmount}</td>
+                <td><strong style="font-size: 13.5px; color: #ffffff;">${balanceAfter}</strong></td>
+                <td style="color: var(--text-muted); font-size: 12.5px;">${item.description || '-'}</td>
             </tr>
         `;
     }).join('');
