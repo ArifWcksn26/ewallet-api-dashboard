@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/style.css?v=2.6.3">
 </head>
 
 <body>
@@ -327,26 +327,28 @@
                                 </div>
                             </div>
 
-                            <div class="table-container">
-                                <table class="custom-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Tanggal & Waktu</th>
-                                            <th>No. Referensi</th>
-                                            <th>Tipe Mutasi</th>
-                                            <th>Nominal</th>
-                                            <th>Saldo Akhir</th>
-                                            <th>Keterangan</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="history-table-body">
-                                        <tr>
-                                            <td colspan="6" style="text-align:center; padding:30px;" class="text-muted">
-                                                Memuat mutasi rekening...
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                            <div class="table-responsive" style="overflow-x: auto; -webkit-overflow-scrolling: touch; width: 100%; max-width: 100%;">
+                                <div class="table-container">
+                                    <table class="custom-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Tanggal & Waktu</th>
+                                                <th>No. Referensi</th>
+                                                <th>Tipe Mutasi</th>
+                                                <th>Nominal</th>
+                                                <th>Saldo Akhir</th>
+                                                <th>Keterangan</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="history-table-body">
+                                            <tr>
+                                                <td colspan="6" style="text-align:center; padding:30px;" class="text-muted">
+                                                    Memuat mutasi rekening...
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
 
                             <div class="pagination-bar">
@@ -504,7 +506,7 @@
         </div>
     </div>
 
-    <script src="/app.js"></script>
+    <script src="/app.js?v=2.6.3"></script>
 </body>
 
 </html>
